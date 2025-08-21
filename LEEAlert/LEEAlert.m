@@ -12,7 +12,7 @@
  *
  *  @author LEE
  *  @copyright    Copyright © 2016 - 2024年 lee. All rights reserved.
- *  @version    V1.8.1
+ *  @version    V1.8.2
  */
 
 #import "LEEAlert.h"
@@ -4056,9 +4056,12 @@ CGPathRef _Nullable LEECGPathCreateWithRoundedRect(CGRect bounds, CornerRadii co
         
         self.config.modelFinishConfig = ^{
             
+            __block BOOL shouldCleanup = NO;
             __attribute__((cleanup(lee_cleanupFunc), unused)) __auto_type x = ^{
-                // break circular reference after leaving the scope.
-                strongSelf = nil;
+                // 只有标记为需要清理的才清理，避免影响队列机制
+                if (shouldCleanup) {
+                    strongSelf = nil;
+                }
             };
             
             if (!strongSelf) {
@@ -4097,10 +4100,14 @@ CGPathRef _Nullable LEECGPathCreateWithRoundedRect(CGRect bounds, CornerRadii co
                     
                 }
                 
-                if ([LEEAlert shareManager].queueArray.lastObject == strongSelf) [strongSelf show];
+                if ([LEEAlert shareManager].queueArray.lastObject == strongSelf) {
+                    shouldCleanup = YES;  // 标记当前要显示的需要清理
+                    [strongSelf show];
+                }
                 
             } else {
                 
+                shouldCleanup = YES;  // 没有队列时直接显示并清理
                 [strongSelf show];
                 
                 [[LEEAlert shareManager].queueArray addObject:strongSelf];
