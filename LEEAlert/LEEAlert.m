@@ -4054,17 +4054,17 @@ CGPathRef _Nullable LEECGPathCreateWithRoundedRect(CGRect bounds, CornerRadii co
         
         self.isShowing = NO;
         
-        __block typeof(self) strongSelf = self;
-        
+        /// __block typeof(self) strongSelf = self;
+        __weak __typeof(&*self) weakSelf = self;
         self.config.modelFinishConfig = ^{
-            
-            __block BOOL shouldCleanup = NO;
-            __attribute__((cleanup(lee_cleanupFunc), unused)) __auto_type x = ^{
-                // 只有标记为需要清理的才清理，避免影响队列机制
-                if (shouldCleanup) {
-                    strongSelf = nil;
-                }
-            };
+            __strong __typeof(&*weakSelf) strongSelf = weakSelf;
+            /// __block BOOL shouldCleanup = NO;
+            /// __attribute__((cleanup(lee_cleanupFunc), unused)) __auto_type x = ^{
+                /// 只有标记为需要清理的才清理，避免影响队列机制
+                /// if (shouldCleanup) {
+                ///     strongSelf = nil;
+                /// }
+            /// };
             
             if (!strongSelf) {
                 return;
@@ -4103,7 +4103,7 @@ CGPathRef _Nullable LEECGPathCreateWithRoundedRect(CGRect bounds, CornerRadii co
                 }
                 
                 if ([LEEAlert shareManager].queueArray.lastObject == strongSelf) {
-                    shouldCleanup = YES;  // 标记当前要显示的需要清理
+                    /// shouldCleanup = YES;  // 标记当前要显示的需要清理
                     [strongSelf show];
                 }
                 
