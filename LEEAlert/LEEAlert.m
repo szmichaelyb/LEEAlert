@@ -4042,6 +4042,8 @@ CGPathRef _Nullable LEECGPathCreateWithRoundedRect(CGRect bounds, CornerRadii co
 - (void)dealloc{
     
     _config = nil;
+    NSString *clsstr = NSStringFromClass(self.class);
+    printf("------> dealloc 被调用了,[%s]被销毁:[%p]\n",clsstr.UTF8String,self);
 }
 
 - (nonnull instancetype)init
@@ -4107,7 +4109,7 @@ CGPathRef _Nullable LEECGPathCreateWithRoundedRect(CGRect bounds, CornerRadii co
                 
             } else {
                 
-                shouldCleanup = YES;  // 没有队列时直接显示并清理
+                /// shouldCleanup = YES;  // 没有队列时直接显示并清理
                 [strongSelf show];
                 
                 [[LEEAlert shareManager].queueArray addObject:strongSelf];
