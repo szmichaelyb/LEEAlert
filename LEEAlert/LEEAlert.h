@@ -11,8 +11,8 @@
  *  @brief  LEEAlert
  *
  *  @author LEE
- *  @copyright    Copyright © 2016 - 2020年 lee. All rights reserved.
- *  @version    V1.5.1
+ *  @copyright    Copyright © 2016 - 2024年 lee. All rights reserved.
+ *  @version    V1.8.2
  */
 
 #import <Foundation/Foundation.h>
@@ -188,6 +188,12 @@ NS_ASSUME_NONNULL_BEGIN
 /** 设置 是否可滑动 -> 格式: .LeeIsScrollEnabled(YES) */
 @property (nonatomic, copy, readonly) LEEConfigToBool LeeIsScrollEnabled;
 
+/** 设置 是否显示滑动指示器 -> 格式: .LeeIsShowsScrollIndicator(YES) */
+@property (nonatomic, copy, readonly) LEEConfigToBool LeeIsShowsScrollIndicator;
+
+/** 设置 Action是否跟随Item滑动 -> 格式: .LeeIsActionFollowScrollEnabled(YES) */
+@property (nonatomic, copy, readonly) LEEConfigToBool LeeIsActionFollowScrollEnabled;
+
 /** 设置 阴影偏移 -> 格式: .LeeShadowOffset(CGSizeMake(0.0f, 2.0f)) */
 @property (nonatomic, copy, readonly) LEEConfigToSize LeeShadowOffset;
 
@@ -230,7 +236,7 @@ NS_ASSUME_NONNULL_BEGIN
 /** 设置 标识 -> 格式: .LeeIdentifier(@@"ident") */
 @property (nonatomic, copy, readonly) LEEConfigToString LeeIdentifier;
 
-/** 设置 是否加入到队列 -> 格式: .LeeQueue(YES)  默认不加入*/
+/** 设置 是否加入到队列 -> 格式: .LeeQueue(YES)  默认不加入 (加入队列后 同一时间多个弹窗按优先级顺序依次显示, 即便被高优先级的挤掉也会在后续恢复, 除非队列被清空)*/
 @property (nonatomic, copy, readonly) LEEConfigToBool LeeQueue;
 
 /** 设置 优先级 -> 格式: .LeePriority(1000) */
@@ -302,6 +308,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 /** 设置 是否闪避键盘 -> 格式: .LeeAvoidKeyboard(YES) */
 @property (nonatomic, copy, readonly) LEEConfigToBool LeeAvoidKeyboard;
+
+/** 设置 Action是否使用垂直布局 -> 格式: .LeeAlertActionVerticalLayout(YES) */
+@property (nonatomic, copy, readonly) LEEConfigToBool LeeAlertActionVerticalLayout;
 
 @end
 
@@ -407,6 +416,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 /** action标题的间距范围 */
 @property (nonatomic, assign) UIEdgeInsets titleEdgeInsets;
+
+/** action内容边距 */
+@property (nonatomic, assign) UIEdgeInsets contentEdgeInsets;
+
+/** action内容垂直对齐 */
+@property (nonatomic, assign) UIControlContentVerticalAlignment contentVerticalAlignment;
+
+/** action内容水平对齐 */
+@property (nonatomic, assign) UIControlContentHorizontalAlignment contentHorizontalAlignment;
 
 /** action圆角曲率 */
 @property (nonatomic, assign) CGFloat cornerRadius;

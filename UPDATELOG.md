@@ -1,6 +1,60 @@
 
 # LEEAlert - 更新日志
 
+V1.8.2
+==============
+修复1.8.1导致的队列不能显示后续
+
+V1.8.1
+==============
+解决提前释放问题
+
+V1.8.0
+==============
+`[LEEAlert alert]`增加2个Action时 是否为垂直布局的设置
+`.LeeAlertActionVerticalLayout(YES)`
+
+V1.7.1
+==============
+添加隐私清单
+
+V1.6.6
+==============
+`LEEAction`添加`contentEdgeInsets` `contentVerticalAlignment` `contentHorizontalAlignment`
+
+V1.6.5
+==============
+恢复`makeKeyAndVisible`调用
+最小系统版本改为11.0
+
+V1.6.4
+==============
+修复对自定义视图产生的影响
+
+V1.6.3
+==============
+增加 `.LeeIsShowsScrollIndicator(YES)` 设置是否显示滑动指示器
+
+V1.6.2
+==============
+`leeShouldActionClickClose` 返回False时 Action的点击事件回调也会被调用
+
+V1.6.1
+==============
+尝试解决iOS16 Window旋转问题
+
+V1.6.0
+==============
+重构内部布局
+增加`.LeeIsActionFollowScrollEnabled(YES)` 设置 Action是否跟随Item滑动 
+具体效果请查看Demo
+
+
+V1.5.2
+==============
+修复队列问题
+
+
 V1.5.1
 ==============
 修复`[LEEAlert clearQueue]`问题
